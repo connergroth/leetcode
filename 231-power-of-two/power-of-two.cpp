@@ -4,8 +4,9 @@ public:
         if(n <= 0){
             return false;
         }
-        else{
-            return (n & (n - 1)) == 0;
+        else if(n & n - 1 ){
+            return false;
         }
+        return true;
     }
 };
