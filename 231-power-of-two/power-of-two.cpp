@@ -4,7 +4,7 @@ public:
         if(n <= 0){
             return false;
         }
-        else if(n & n - 1 ){
+        if(n & n - 1 ){
             return false;
         }
         return true;
