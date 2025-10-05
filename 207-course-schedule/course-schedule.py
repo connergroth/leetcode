@@ -8,33 +8,23 @@ class Solution(object):
         :rtype: bool
         """ 
 
-        # take prereqs array and construct graph via defaultdict
+        indegree = [0] * numCourses
         graph = defaultdict(list)
         for a, b in prerequisites:
             graph[b].append(a)
-        
-        # state tracking [0],[1],[2]
-        state = [0] * numCourses
+            indegree[a] += 1
 
-        def dfs(course):
-            if state[course] == 1:
-                return False
-            elif state[course] == 2:
-                return True # already processed
+        queue = deque([i for i in range(numCourses) if indegree[i] == 0])
 
-            state[course] = 1
+        remaining = 0
+        while queue:
+            course = queue.popleft()
+            remaining += 1
+
             for neighbor in graph[course]:
-                if not dfs(neighbor):
-                    return False
-            state[course] = 2
-            return True
-        
-        for course in range(numCourses):
-            if not dfs(course):
-                return False
-        return True
+                indegree[neighbor] -= 1
+                if indegree[neighbor] == 0:
+                    queue.append(neighbor)
 
-            
-
-                
+        return remaining == numCourses
 
