@@ -5,17 +5,20 @@ class Solution(object):
         :type t: str
         :rtype: bool
         """
-        if len(s) != len(t): 
+        if len(s) != len(t):
             return False
 
-        count = {} # char : count
+        seen = {}
+        for i, char in enumerate(s):
+            if char in seen:
+                seen[char] += 1
+            else:
+                seen[char] = 1
 
-        for char in s:
-            count[char] = count.get(char, 0) + 1
-        
         for char in t:
-            if char not in count or count[char] == 0:
+            if char in seen and seen[char] > 0:
+                seen[char] -= 1
+            else:
                 return False
-            count[char] -=1
 
         return True
