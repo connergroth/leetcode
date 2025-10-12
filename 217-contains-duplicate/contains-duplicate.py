@@ -4,10 +4,12 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        seen = {} # num : count
+        seen = {}
 
-        for i, n in enumerate(nums):
-            seen[n] = seen.get(n, 0) + 1 
-            if seen.get(n) >=2:
+        for i, num in enumerate(nums):
+            if num in seen:
                 return True
+            else:
+                seen[num] = i
+        
         return False
